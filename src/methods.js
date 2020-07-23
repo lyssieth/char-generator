@@ -2,14 +2,12 @@ import { random } from "./random.js";
 
 export function dice_4d6kh3() {
 	function single() {
-		let rolls = [
-			random(1, 6),
-			random(1, 6),
-			random(1, 6),
-			random(1, 6),
-		].sort();
+		let rolls = [random(1, 6), random(1, 6), random(1, 6), random(1, 6)]
+			.sort((a, b) => a - b)
+			.reverse();
 
 		rolls.pop();
+
 		return rolls.reduce((pv, cv) => pv + cv);
 	}
 

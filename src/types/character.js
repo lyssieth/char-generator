@@ -107,7 +107,6 @@ export class Character {
 	rollStats(method) {
 		this.stats.raceModifiers = this.race.modifiers;
 		let pref = this.class.preferences.all();
-		console.log(pref);
 
 		let rolls = method();
 
