@@ -1,45 +1,49 @@
 import { HairStyle, HairAccessory } from "./hair.js";
 import { COLORS } from "../lists.js";
 import { Color } from "./color.js";
+import { Stats, Modifiers, Preferences } from "./stat.js";
+import { choice } from "../random.js";
+import { Class } from "./class.js";
+import { Race } from "./race.js";
 
 export class Hair {
 	/**
 	 * @param {string} length
 	 * @param {HairStyle} style
 	 * @param {HairAccessory} accessory
-	 * @param {Color} primary_color
-	 * @param {Color?} secondary_color
-	 * @param {Color?} tertiary_color
+	 * @param {Color} primaryColor
+	 * @param {Color?} secondaryColor
+	 * @param {Color?} tertiaryColor
 	 */
 	constructor(
 		length,
 		style,
 		accessory,
-		primary_color,
-		secondary_color = null,
-		tertiary_color = null
+		primaryColor,
+		secondaryColor = null,
+		tertiaryColor = null
 	) {
 		this.length = length;
 		this.style = style;
 		this.accessory = accessory;
-		this.primary_color = primary_color;
-		this.secondary_color = secondary_color || primary_color;
-		this.tertiary_color = tertiary_color || primary_color;
+		this.primaryColor = primaryColor;
+		this.secondaryColor = secondaryColor || primaryColor;
+		this.tertiaryColor = tertiaryColor || primaryColor;
 	}
 }
 
 export class Eyes {
 	/**
 	 * @param {string} eyesight
-	 * @param {string} pupil_shape
-	 * @param {Color} iris_color
-	 * @param {Color} sclera_color
+	 * @param {string} pupilShape
+	 * @param {Color} irisColor
+	 * @param {Color} scleraColor
 	 */
-	constructor(eyesight, pupil_shape, iris_color, sclera_color) {
+	constructor(eyesight, pupilShape, irisColor, scleraColor) {
 		this.eyesight = eyesight;
-		this.pupil_shape = pupil_shape;
-		this.iris_color = iris_color;
-		this.sclera_color = sclera_color;
+		this.pupilShape = pupilShape;
+		this.irisColor = irisColor;
+		this.scleraColor = scleraColor;
 	}
 }
 
@@ -74,13 +78,15 @@ export class Character {
 	constructor(name) {
 		this._name = name;
 		this._alignment = "";
-		this._likelihood_of_murder = "";
-		this._class = "";
-		this._physical_gender = "";
+		this._likelihoodOfMurder = "";
+		this._class = new Class("", new Preferences());
+		this._race = new Race("", "", new Modifiers());
+		this._stats = new Stats();
+		this._physicalGender = "";
 		this._appearance = "";
 		this._height = "";
 		this._voice = "";
-		this._skin_tone = "";
+		this._skinTone = "";
 		this._hair = new Hair(
 			"",
 			new HairStyle("", []),
@@ -96,6 +102,72 @@ export class Character {
 	}
 
 	/**
+	 * @param {() => number[]} method
+	 */
+	rollStats(method) {
+		this.stats.raceModifiers = this.race.modifiers;
+		let pref = this.class.preferences.all();
+		console.log(pref);
+
+		let rolls = method();
+
+		rolls = rolls.sort((a, b) => a - b).reverse();
+
+		rolls.forEach((val, index) => {
+			if (pref.length > 0) {
+				let it = choice(pref)[0];
+				switch (it) {
+					case "strength":
+						this.stats.strength.value = val;
+						pref = pref.filter((v) => v !== "strength");
+						break;
+					case "dexterity":
+						this.stats.dexterity.value = val;
+						pref = pref.filter((v) => v !== "dexterity");
+						break;
+					case "constitution":
+						this.stats.constitution.value = val;
+						pref = pref.filter((v) => v !== "constitution");
+						break;
+					case "intelligence":
+						this.stats.intelligence.value = val;
+						pref = pref.filter((v) => v !== "intelligence");
+						break;
+					case "wisdom":
+						this.stats.wisdom.value = val;
+						pref = pref.filter((v) => v !== "wisdom");
+						break;
+					case "charisma":
+						this.stats.charisma.value = val;
+						pref = pref.filter((v) => v !== "charisma");
+						break;
+				}
+			} else {
+				switch (index) {
+					case 0:
+						this.stats.strength.value = val;
+						break;
+					case 1:
+						this.stats.dexterity.value = val;
+						break;
+					case 2:
+						this.stats.constitution.value = val;
+						break;
+					case 3:
+						this.stats.intelligence.value = val;
+						break;
+					case 4:
+						this.stats.wisdom.value = val;
+						break;
+					case 5:
+						this.stats.charisma.value = val;
+						break;
+				}
+			}
+		});
+	}
+
+	/**
 	 * @returns {string}
 	 */
 	get alignment() {
@@ -108,21 +180,41 @@ export class Character {
 	/**
 	 * @returns {string}
 	 */
-	get likelihood_of_murder() {
-		return this._likelihood_of_murder;
+	get likelihoodOfMurder() {
+		return this._likelihoodOfMurder;
 	}
-	set likelihood_of_murder(likelihood_of_murder) {
-		this._likelihood_of_murder = likelihood_of_murder;
+	set likelihoodOfMurder(likelihoodOfMurder) {
+		this._likelihoodOfMurder = likelihoodOfMurder;
 	}
 
 	/**
-	 * @returns {string}
+	 * @returns {Class}
 	 */
 	get class() {
 		return this._class;
 	}
 	set class(c) {
 		this._class = c;
+	}
+
+	/**
+	 * @returns {Race}
+	 */
+	get race() {
+		return this._race;
+	}
+	set race(race) {
+		this._race = race;
+	}
+
+	/**
+	 * @returns {Stats}
+	 */
+	get stats() {
+		return this._stats;
+	}
+	set stats(stats) {
+		this._stats = stats;
 	}
 
 	/**
@@ -138,11 +230,11 @@ export class Character {
 	/**
 	 * @returns {string}
 	 */
-	get physical_gender() {
-		return this._physical_gender;
+	get physicalGender() {
+		return this._physicalGender;
 	}
-	set physical_gender(physical_gender) {
-		this._physical_gender = physical_gender;
+	set physicalGender(physicalGender) {
+		this._physicalGender = physicalGender;
 	}
 
 	/**
@@ -178,11 +270,11 @@ export class Character {
 	/**
 	 * @returns {string}
 	 */
-	get skin_tone() {
-		return this._skin_tone;
+	get skinTone() {
+		return this._skinTone;
 	}
-	set skin_tone(skin_tone) {
-		this._skin_tone = skin_tone;
+	set skinTone(skinTone) {
+		this._skinTone = skinTone;
 	}
 
 	/**

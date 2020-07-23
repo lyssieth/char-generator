@@ -3,8 +3,10 @@ import rjs from "random-js";
 const { nativeMath, sample, integer } = rjs;
 
 /**
- * @param {any[]} input A list containing input data
- * @returns An array of length **amount** with no repeats
+ * @param {Array.<T>} input A list containing input data
+ * @returns {Array.<T>} An array of length **amount** with no repeats
+ *
+ * @template T
  */
 export function choice(input, amount = 1) {
 	return sample(nativeMath, input, amount);

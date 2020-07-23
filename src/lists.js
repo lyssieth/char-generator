@@ -6,6 +6,9 @@ import {
 	HairAccessory,
 } from "./types/hair.js";
 import { Color } from "./types/color.js";
+import { Modifiers, Preferences } from "./types/stat.js";
+import { Class } from "./types/class.js";
+import { Race } from "./types/race.js";
 
 // GENERIC
 export const ALIGNMENT = [
@@ -33,20 +36,237 @@ export const LIKELIHOOD_OF_MURDER = [
 	"absolutely guaranteed",
 ];
 export const CLASS = [
-	"barbarian",
-	"bard",
-	"cleric",
-	"druid",
-	"fighter",
-	"monk",
-	"paladin",
-	"ranger",
-	"rogue",
-	"sorcerer",
-	"warlock",
-	"wizard",
-	"artificer",
-	"blood hunter",
+	new Class("barbarian", Preferences.str().con()),
+	new Class("bard", Preferences.cha().dex()),
+	new Class("cleric", Preferences.wis().cha()),
+	new Class("druid", Preferences.wis().int()),
+	new Class("fighter", Preferences.str().dex().con()),
+	new Class("monk", Preferences.dex().wis().str()),
+	new Class("paladin", Preferences.str().cha().wis()),
+	new Class("ranger", Preferences.dex().wis().str()),
+	new Class("rogue", Preferences.dex().int()),
+	new Class("sorcerer", Preferences.cha().con()),
+	new Class("warlock", Preferences.cha().wis()),
+	new Class("warlock", Preferences.int().wis()),
+	new Class("artificer", Preferences.int().con()),
+	new Class("blood hunter", Preferences.str().dex().int()),
+];
+export const RACE = [
+	new Race(
+		"dragonborn",
+		"Dragonborn look very much like dragons standing erect in human form, though they lack wings or a tail.",
+		Modifiers.str(2).cha(1)
+	),
+	new Race(
+		"dwarf",
+		"Bold and hardy, dwarves are known as skilled warriors, miners and workers of stone and metal.",
+		Modifiers.con(2)
+	),
+	new Race(
+		"elf",
+		"Elves are a magical people of otherworldly grace, living in the world but not entirely part of it.",
+		Modifiers.dex(2)
+	),
+	new Race(
+		"gnome",
+		"A gnome's energy and enthusiasm for living shines through every inch of his or her tiny body.",
+		Modifiers.int(2)
+	),
+	new Race(
+		"half-elf",
+		"Half-elves combine what some say are the best qualities of their elf and human parents.",
+		Modifiers.cha(2).random(2, 1)
+	),
+	new Race(
+		"halfling",
+		"The diminutive halflings survive in a world full of larger creatures by avoiding notice or, barring that, avoiding offense.",
+		Modifiers.dex(2)
+	),
+	new Race(
+		"half-orc",
+		"Half-orcs' grayish pigmentation, sloping foreheads, jutting jaws, prominent teeth, and towering builds make their orcish heritage plain for all to see",
+		Modifiers.str(2).con(1)
+	),
+	new Race(
+		"human",
+		"Humans are the most adaptable and ambitious people among the common races. Whatever drives them, humans are the innovators, the achievers, and the pioneers of the worlds.",
+		Modifiers.all(1)
+	),
+	new Race(
+		"tiefling",
+		"To be greeted with stares and whispers, to suffer violence and insult on the street, to see mistrust and fear in every eye: this is the lot of the tiefling.",
+		Modifiers.cha(2).int(1)
+	),
+	new Race(
+		"orc of Exandria",
+		"Orcs are one of Exandria's youngest races, and are said to have been born from elves seared by the blood of Gruumsh, the Ruiner.",
+		Modifiers.str(2).con(1)
+	),
+	new Race(
+		"leonin",
+		"Nomadic, lion-like humanoids who rarely interact with other peoples, having all they need in their shimmering homeland.",
+		Modifiers.con(2).str(1)
+	),
+	new Race(
+		"satyr",
+		"Satyrs embody a fusion of humanoid civilization with the freedom of wild beasts.",
+		Modifiers.cha(2).dex(1)
+	),
+	new Race(
+		"aarakocra",
+		"Sequestered in high mountains atop tall trees, the aarakocra, sometimes called birdfolk, evoke fear and wonder.",
+		Modifiers.dex(2).wis(1)
+	),
+	new Race(
+		"genasi",
+		"Genasi carry the power of the elemental planes of air, earth, fire, and water in their blood.",
+		Modifiers.con(2)
+	),
+	new Race(
+		"goliath",
+		"Strong and reclusive, every day brings a new challenge to a goliath.",
+		Modifiers.str(2).con(1)
+	),
+	new Race(
+		"aasimar",
+		"Aasimar are placed in the world to serve as guardians of law and good. Their patrons expect them to strike at evil, lead by example, and further the cause of justice.",
+		Modifiers.cha(2)
+	),
+	new Race(
+		"bugbear",
+		"Bugbears feature in the nightmare tales of many races - great, hairy beasts that creep through the shadows as quiet as cats.",
+		Modifiers.str(2).dex(1)
+	),
+	new Race(
+		"firbolg",
+		"Firbolg tribes cloister in remote forest strongholds, preferring to spend their days in quiet harmony with the woods.",
+		Modifiers.wis(2).str(1)
+	),
+	new Race(
+		"goblin",
+		"Goblins occupy an uneasy place in a dangerous world, and they react by lashing out at any creatures they believe they can bully.",
+		Modifiers.dex(2).con(1)
+	),
+	new Race(
+		"hobgoblin",
+		"War is the lifeblood of hobgoblins. Its glories are the dreams that inspire them. Its horrors don't feature in their nightmares.",
+		Modifiers.con(2).int(1)
+	),
+	new Race(
+		"kenku",
+		"Haunted by an ancient crime that robbed them of their wings, the kenku wander the world as vagabonds and burglars who live at the edge of human society.",
+		Modifiers.dex(2).wis(1)
+	),
+	new Race(
+		"kobold",
+		"Kobolds are typically timid and shy away from conflict, but they are dangerous and vicious if cornered.",
+		Modifiers.dex(2).str(-2)
+	),
+	new Race(
+		"lizardfolk",
+		"Lizardfolk possess an alien and inscrutable mindset, their desires and thoughts driven by a different set of basic principles than those of warm-blooded creatures.",
+		Modifiers.con(2).wis(1)
+	),
+	new Race(
+		"orc",
+		"Orcs live a life that has no place for weakness, and every warrior must be strong enough to take what is needed by force.",
+		Modifiers.str(2).con(1).int(-2)
+	),
+	new Race(
+		"tabaxi",
+		"Hailing from a strange and distant land, wandering tabaxi are catlike humanoids driven by curiosity to collect interesting artifacts, gather tales and stories, and lay eyes on all the world's wonders.",
+		Modifiers.dex(2).cha(1)
+	),
+	new Race(
+		"triton",
+		"Long-established guardians of the deep ocean floor, in recent years the noble tritons have become increasingly active in the world above.",
+		Modifiers.str(1).con(1).cha(1)
+	),
+	new Race(
+		"yuan-ti pureblood",
+		"The serpent creatures known as yuan-ti are all that remains of an ancient, decadent human empire.",
+		Modifiers.cha(2).int(1)
+	),
+	new Race(
+		"feral tiefling",
+		"To be greeted with stares and whispers, to suffer violence and insult on the street, to see mistrust and fear in every eye: this is the lot of the tiefling.",
+		Modifiers.dex(2).int(1)
+	),
+	new Race(
+		"tortle",
+		"What many tortles consider a simple life, others might call a life of adventure. They are nomad survivalists eager to explore the wilderness.",
+		Modifiers.str(2).wis(1)
+	),
+	new Race(
+		"changeling",
+		"A changeling can shift its face and form with a thought as a form of artistic and emotional expression.",
+		Modifiers.cha(2).random(1, 1)
+	),
+	new Race(
+		"kalashtar",
+		"The kalashtar are a compound people created from the union of humanity and renegade spirits from the plane of dreams.",
+		Modifiers.wis(2).cha(1)
+	),
+	new Race(
+		"orc of Eberron",
+		"Thousands of years before humans came to Khorvaire, the land was dominated by wild orcs and goblinoids of the Dhakaani Empire.",
+		Modifiers.str(2).con(1)
+	),
+	new Race(
+		"shifter",
+		"Shifters - sometimes called the weretouched - are humanoids with a bestial aspect.",
+		Modifiers.all(0)
+	),
+	new Race(
+		"warforged",
+		"Warforged are made of wood and metal, but they can feel pain and emotion. Built as weapons, they must now find a purpose beyond war.",
+		Modifiers.con(2).random(1, 1)
+	),
+	new Race(
+		"gith",
+		"Long ago, the gith rose up to overthrow the mind flayers that held them in servitude, but two factions arose that remain bitter enemies today.",
+		Modifiers.int(1)
+	),
+	new Race(
+		"centaur",
+		"The upper bodies of centaurs are comparable to human torsos in size, and their lower equine bodies average about 4 feet tall at the withers. They fill similar roles as cavalry warriors, messengers, outriders, and scouts.",
+		Modifiers.str(2).wis(1)
+	),
+	new Race(
+		"loxodon",
+		"Humanoid elephants, loxodons are strong, calm, and wise.",
+		Modifiers.con(2).wis(1)
+	),
+	new Race(
+		"minotaur",
+		"The minotaurs of Ravnica are strong in body, dedication, and courage. They are at home on the battlefield, willing to fight for their various causes.",
+		Modifiers.str(2).con(1)
+	),
+	new Race(
+		"simic hybrid",
+		"The Simic Combine uses magic to transfer the traits of animals into humans, elves, and vedalken.",
+		Modifiers.con(2).random(1, 1)
+	),
+	new Race(
+		"vedalken",
+		"The blue-skinned vedalken strive for perfection above all else.",
+		Modifiers.int(2).wis(1)
+	),
+	new Race(
+		"Verdan",
+		"The verdan owe their existence to chaos - doing their best to find their way in an unfamiliar world.",
+		Modifiers.con(1).cha(2)
+	),
+	new Race(
+		"Locathah",
+		"These resilient and powerful fish-folk have endured war, slavery, and mistreatment at the hands of other aquatic creatures.",
+		Modifiers.str(2).dex(1)
+	),
+	new Race(
+		"grung",
+		"Grung have an assortment of inborn abilities, part and parcel of grung nature.",
+		Modifiers.dex(2).con(1)
+	),
 ];
 export const PHYSICAL_GENDER = ["male", "female", "hermaphrodite"];
 export const APPEARANCE = ["masculine", "feminine", "androgynous"];

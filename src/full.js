@@ -19,6 +19,7 @@ import {
 	ALIGNMENT,
 	LIKELIHOOD_OF_MURDER,
 	CLASS,
+	RACE,
 } from "./lists.js";
 import { HairStyle } from "./types/hair.js";
 
@@ -26,13 +27,14 @@ export function full() {
 	let char = new Character("");
 
 	char.alignment = choice(ALIGNMENT)[0];
-	char.likelihood_of_murder = choice(LIKELIHOOD_OF_MURDER)[0];
+	char.likelihoodOfMurder = choice(LIKELIHOOD_OF_MURDER)[0];
 	char.class = choice(CLASS)[0];
-	char.physical_gender = choice(PHYSICAL_GENDER)[0];
+	char.race = choice(RACE)[0];
+	char.physicalGender = choice(PHYSICAL_GENDER)[0];
 	char.appearance = choice(APPEARANCE)[0];
 	char.height = choice(HEIGHT)[0];
 	char.voice = choice(VOICE)[0];
-	char.skin_tone = choice(SKIN_TONE)[0];
+	char.skinTone = choice(SKIN_TONE)[0];
 
 	let hair_length = choice(HAIR_LENGTH)[0];
 	let hair_style = choice_filter(HAIR_STYLE, (t) => {
