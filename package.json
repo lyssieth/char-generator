@@ -1,0 +1,24 @@
+{
+	"name": "char-generator",
+	"version": "0.0.1",
+	"description": "Uses randomness to help create characters I guess?",
+	"main": "main.js",
+	"type": "module",
+	"scripts": {
+		"start": "node main",
+		"debug": "node --inspect main",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Lyssieth <raxixor@rax.ee>",
+	"license": "MIT",
+	"dependencies": {
+		"@types/color-name": "^1.1.1",
+		"commander": "^6.0.0",
+		"inquirer": "^7.3.2",
+		"random-js": "^2.1.0"
+	},
+	"devDependencies": {
+		"eslint": "^7.5.0",
+		"jshint": "^2.11.1"
+	}
+}
