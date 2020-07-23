@@ -889,7 +889,7 @@ export const FAVORITE_ANIMAL = [
 	"Dragon turtle",
 	"Ancient dragon",
 	"Kraken",
-	"Terrasque",
+	"Tarrasque",
 	"Can't decide, there's too many good ones",
 	"I don't care much for animals",
 	"I don't like animals",
