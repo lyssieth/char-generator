@@ -1,9 +1,9 @@
 import commander from "commander";
 const { Command } = commander;
-import pck from "./package.json";
 import { argv } from "process";
 import { interactive } from "./src/interactive.js";
 import { full } from "./src/full.js";
+import { describe } from "./src/describe.js";
 
 /*
  * Based on this compilation of lists by /u/wizard_cheese, with hopefully some formatting.
@@ -15,14 +15,18 @@ import { full } from "./src/full.js";
 
 const program = new Command();
 program.name("char-generator");
-program.version(pck.version);
+program.version("0.0.1");
 
 program.option("--interactive", "A fully interactive run", false);
 
 program.parse(argv);
 
+let char;
+
 if (program.interactive) {
-	interactive();
+	char = interactive();
 } else {
-	full();
+	char = full();
 }
+
+describe(char);

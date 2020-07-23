@@ -1,4 +1,9 @@
 import { choice, random } from "./random.js";
-import i from "inquirer";
+import prompts from "prompts";
+import { Character } from "./types/character.js";
 
-export function interactive() {}
+export function interactive() {
+	let char = new Character("");
+
+	return char;
+}

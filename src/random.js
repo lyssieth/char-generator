@@ -4,7 +4,7 @@ const { nativeMath, sample, integer } = rjs;
 
 /**
  * @param {any[]} input A list containing input data
- * @returns {any[]} An array of length **amount** with no repeats
+ * @returns An array of length **amount** with no repeats
  */
 export function choice(input, amount = 1) {
 	return sample(nativeMath, input, amount);
@@ -27,4 +27,10 @@ export function choice_filter(input, filter, amount = 1) {
 	return output;
 }
 
-export const random = integer;
+/**
+ * @param {number} min
+ * @param {number} max
+ */
+export function random(min, max) {
+	return integer(min, max)(nativeMath);
+}
