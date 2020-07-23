@@ -75,6 +75,7 @@ export class Character {
 		this._name = name;
 		this._alignment = "";
 		this._likelihood_of_murder = "";
+		this._class = "";
 		this._physical_gender = "";
 		this._appearance = "";
 		this._height = "";
@@ -112,6 +113,16 @@ export class Character {
 	}
 	set likelihood_of_murder(likelihood_of_murder) {
 		this._likelihood_of_murder = likelihood_of_murder;
+	}
+
+	/**
+	 * @returns {string}
+	 */
+	get class() {
+		return this._class;
+	}
+	set class(c) {
+		this._class = c;
 	}
 
 	/**

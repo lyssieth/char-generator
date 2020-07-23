@@ -32,6 +32,22 @@ export const LIKELIHOOD_OF_MURDER = [
 	"highly likely",
 	"absolutely guaranteed",
 ];
+export const CLASS = [
+	"barbarian",
+	"bard",
+	"cleric",
+	"druid",
+	"fighter",
+	"monk",
+	"paladin",
+	"ranger",
+	"rogue",
+	"sorcerer",
+	"warlock",
+	"wizard",
+	"artificer",
+	"blood hunter",
+];
 export const PHYSICAL_GENDER = ["male", "female", "hermaphrodite"];
 export const APPEARANCE = ["masculine", "feminine", "androgynous"];
 export const HEIGHT = [
