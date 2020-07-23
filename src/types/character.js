@@ -107,59 +107,95 @@ export class Character {
 	rollStats(method) {
 		this.stats.raceModifiers = this.race.modifiers;
 		let pref = this.class.preferences.all();
+		let remaining = [
+			"strength",
+			"dexterity",
+			"intelligence",
+			"constitution",
+			"wisdom",
+			"charisma",
+		];
 
 		let rolls = method();
 
 		rolls = rolls.sort((a, b) => a - b).reverse();
 
 		rolls.forEach((val, index) => {
+			console.log(`Running with variables:`, { val, index, pref });
 			if (pref.length > 0) {
 				let it = choice(pref)[0];
 				switch (it) {
 					case "strength":
 						this.stats.strength.value = val;
 						pref = pref.filter((v) => v !== "strength");
+						remaining = remaining.filter((v) => v !== "strength");
 						break;
 					case "dexterity":
 						this.stats.dexterity.value = val;
 						pref = pref.filter((v) => v !== "dexterity");
+						remaining = remaining.filter((v) => v !== "dexterity");
 						break;
 					case "constitution":
 						this.stats.constitution.value = val;
 						pref = pref.filter((v) => v !== "constitution");
+						remaining = remaining.filter(
+							(v) => v !== "constitution"
+						);
 						break;
 					case "intelligence":
 						this.stats.intelligence.value = val;
 						pref = pref.filter((v) => v !== "intelligence");
+						remaining = remaining.filter(
+							(v) => v !== "intelligence"
+						);
 						break;
 					case "wisdom":
 						this.stats.wisdom.value = val;
 						pref = pref.filter((v) => v !== "wisdom");
+						remaining = remaining.filter((v) => v !== "wisdom");
 						break;
 					case "charisma":
 						this.stats.charisma.value = val;
 						pref = pref.filter((v) => v !== "charisma");
+						remaining = remaining.filter((v) => v !== "charisma");
+						break;
+					default:
+						console.log(`Failed to set ${it} to ${val}`);
 						break;
 				}
 			} else {
-				switch (index) {
-					case 0:
+				let it = choice(remaining)[0];
+				switch (it) {
+					case "strength":
 						this.stats.strength.value = val;
+						remaining = remaining.filter((v) => v !== "strength");
 						break;
-					case 1:
+					case "dexterity":
 						this.stats.dexterity.value = val;
+						remaining = remaining.filter((v) => v !== "dexterity");
 						break;
-					case 2:
+					case "constitution":
 						this.stats.constitution.value = val;
+						remaining = remaining.filter(
+							(v) => v !== "constitution"
+						);
 						break;
-					case 3:
+					case "intelligence":
 						this.stats.intelligence.value = val;
+						remaining = remaining.filter(
+							(v) => v !== "intelligence"
+						);
 						break;
-					case 4:
+					case "wisdom":
 						this.stats.wisdom.value = val;
+						remaining = remaining.filter((v) => v !== "wisdom");
 						break;
-					case 5:
+					case "charisma":
 						this.stats.charisma.value = val;
+						remaining = remaining.filter((v) => v !== "charisma");
+						break;
+					default:
+						console.log(`Failed to set ${it} to ${val}`);
 						break;
 				}
 			}
