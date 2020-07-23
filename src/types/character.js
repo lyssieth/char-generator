@@ -73,6 +73,8 @@ export class Character {
 	 */
 	constructor(name) {
 		this._name = name;
+		this._alignment = "";
+		this._likelihood_of_murder = "";
 		this._physical_gender = "";
 		this._appearance = "";
 		this._height = "";
@@ -90,6 +92,26 @@ export class Character {
 		this._hobbies = [];
 		/** @type {Fear[]} */
 		this._fears = [];
+	}
+
+	/**
+	 * @returns {string}
+	 */
+	get alignment() {
+		return this._alignment;
+	}
+	set alignment(alignment) {
+		this._alignment = alignment;
+	}
+
+	/**
+	 * @returns {string}
+	 */
+	get likelihood_of_murder() {
+		return this._likelihood_of_murder;
+	}
+	set likelihood_of_murder(likelihood_of_murder) {
+		this._likelihood_of_murder = likelihood_of_murder;
 	}
 
 	/**

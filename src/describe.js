@@ -6,6 +6,8 @@ import { Character } from "./types/character.js";
 export function describe(char) {
 	console.log({
 		name: char.name,
+		alignment: char.alignment,
+		likelihood_of_murder: char.likelihood_of_murder,
 		physical_gender: char.physical_gender,
 		appearance: char.appearance,
 		height: char.height,

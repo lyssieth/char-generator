@@ -16,12 +16,16 @@ import {
 	HOBBIES,
 	FEARS,
 	FEAR_LEVEL,
+	ALIGNMENT,
+	LIKELIHOOD_OF_MURDER,
 } from "./lists.js";
 import { HairStyle } from "./types/hair.js";
 
 export function full() {
 	let char = new Character("");
 
+	char.alignment = choice(ALIGNMENT)[0];
+	char.likelihood_of_murder = choice(LIKELIHOOD_OF_MURDER)[0];
 	char.physical_gender = choice(PHYSICAL_GENDER)[0];
 	char.appearance = choice(APPEARANCE)[0];
 	char.height = choice(HEIGHT)[0];

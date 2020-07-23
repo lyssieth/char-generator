@@ -8,6 +8,30 @@ import {
 import { Color } from "./types/color.js";
 
 // GENERIC
+export const ALIGNMENT = [
+	"lawful good",
+	"neutral good",
+	"chaotic good",
+	"lawful neutral",
+	"true neutral",
+	"chaotic neutral",
+	"lawful evil",
+	"neutral evil",
+	"chaotic evil",
+];
+export const LIKELIHOOD_OF_MURDER = [
+	"none",
+	"minimal",
+	"low",
+	"mild",
+	"below average",
+	"average",
+	"above average",
+	"strong",
+	"likely",
+	"highly likely",
+	"absolutely guaranteed",
+];
 export const PHYSICAL_GENDER = ["male", "female", "hermaphrodite"];
 export const APPEARANCE = ["masculine", "feminine", "androgynous"];
 export const HEIGHT = [
