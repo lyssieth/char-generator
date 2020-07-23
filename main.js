@@ -3,7 +3,7 @@ const { Command } = commander;
 import { argv } from "process";
 import { interactive } from "./src/interactive.js";
 import { full } from "./src/full.js";
-import { describe } from "./src/describe.js";
+import { describe, describe_dbg } from "./src/describe.js";
 
 /*
  * Based on this compilation of lists by /u/wizard_cheese, with hopefully some formatting.
@@ -18,6 +18,11 @@ program.name("char-generator");
 program.version("0.0.1");
 
 program.option("--interactive", "A fully interactive run", false);
+program.option(
+	"--dbg",
+	"Describes as debug print, not as proper describe",
+	false
+);
 
 program.parse(argv);
 
@@ -29,4 +34,8 @@ if (program.interactive) {
 	char = full();
 }
 
-describe(char);
+if (program.dbg) {
+	describe_dbg(char);
+} else {
+	describe(char);
+}

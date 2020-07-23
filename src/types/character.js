@@ -99,12 +99,16 @@ export class Character {
 		this._hobbies = [];
 		/** @type {Fear[]} */
 		this._fears = [];
+
+		this._rolled = false;
 	}
 
 	/**
 	 * @param {() => number[]} method
 	 */
 	rollStats(method) {
+		if (this._rolled) return;
+		this._rolled = true;
 		this.stats.raceModifiers = this.race.modifiers;
 		let pref = this.class.preferences.all();
 		let remaining = [

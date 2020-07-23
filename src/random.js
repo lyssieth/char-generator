@@ -22,6 +22,7 @@ export function choice_filter(input, filter, amount = 1) {
 	while (output.length < amount) {
 		let ch = choice(input)[0];
 		if (filter(ch)) {
+			console.log({ ch });
 			output.push(ch);
 		}
 	}

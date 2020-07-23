@@ -39,7 +39,7 @@ export function full() {
 	let hair_length = choice(HAIR_LENGTH)[0];
 	let hair_style = choice_filter(HAIR_STYLE, (t) => {
 		if (t instanceof HairStyle) {
-			return t.exclude.some((x) => x != hair_length);
+			return t.exclude.every((x) => x != hair_length);
 		}
 		return false;
 	})[0];
