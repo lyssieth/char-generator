@@ -8,7 +8,7 @@ export function dice_4d6kh3() {
 
 		rolls.pop();
 
-		return rolls.reduce((pv, cv) => pv + cv);
+		return rolls.reduce((pv, cv) => pv + cv, 0);
 	}
 
 	return call_six(single);
