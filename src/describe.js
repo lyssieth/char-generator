@@ -35,6 +35,10 @@ export function describe_dbg(char) {
 
 	console.log({
 		name: char.name,
+		race: {
+			name: char.race.name,
+			description: char.race.description,
+		},
 		alignment: char.alignment,
 		likelihood_of_murder: char.likelihoodOfMurder,
 		physical_gender: char.physicalGender,
@@ -63,10 +67,6 @@ export function describe_dbg(char) {
 		hobbies: char.hobbies,
 		fears: char.fears,
 		class: char.class,
-		race: {
-			name: char.race.name,
-			description: char.race.description,
-		},
 		stats: {
 			strength: char.stats.strength,
 			dexterity: char.stats.dexterity,
