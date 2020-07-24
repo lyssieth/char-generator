@@ -5,6 +5,7 @@ import { dice_4d6kh3 } from "./methods.js";
  * @param {Character} char
  */
 export function describe(char) {
+	if (char.name.length < 1) char.name = "<namehere>";
 	char.rollStats(dice_4d6kh3);
 
 	switch (char.appearance) {
