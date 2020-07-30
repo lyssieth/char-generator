@@ -3,24 +3,29 @@ import { dice_4d6kh3 } from "./methods.js";
 
 /**
  * @param {Character} char
+ * @param {boolean} dbg
  */
-export function describe(char) {
+export function describe(char, dbg = false) {
 	if (char.name.length < 1) char.name = "<namehere>";
 	char.rollStats(dice_4d6kh3);
 
-	switch (char.appearance) {
-		case "masculine":
-			describe_masculine(char);
-			break;
-		case "feminine":
-			describe_feminine(char);
-			break;
-		case "androgynous":
-			describe_androgynous(char);
-			break;
-		default:
-			describe_dbg(char);
-			break;
+	if (dbg) {
+		describe_dbg(char);
+	} else {
+		switch (char.appearance) {
+			case "masculine":
+				describe_masculine(char);
+				break;
+			case "feminine":
+				describe_feminine(char);
+				break;
+			case "androgynous":
+				describe_androgynous(char);
+				break;
+			default:
+				describe_dbg(char);
+				break;
+		}
 	}
 }
 
@@ -32,8 +37,6 @@ function describe_androgynous(char) {}
  * @param {Character} char
  */
 export function describe_dbg(char) {
-	char.rollStats(dice_4d6kh3);
-
 	console.log({
 		name: char.name,
 		race: {

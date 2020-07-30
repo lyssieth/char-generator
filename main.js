@@ -34,8 +34,4 @@ if (program.interactive) {
 	char = full();
 }
 
-if (program.dbg) {
-	describe_dbg(char);
-} else {
-	describe(char);
-}
+describe(char, program.dbg);
