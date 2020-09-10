@@ -4,7 +4,7 @@
     "description": "Uses randomness to help create characters I guess?",
     "scripts": {
         "start": "ts-node src/main",
-        "debug": "ts-node --inspect src/main"
+        "debug": "node -r ts-node/register --inspect src/main"
     },
     "author": "Lyssieth <raxixor@rax.ee>",
     "license": "MIT",

@@ -27,6 +27,10 @@ export function describe(char: Character, dbg: boolean = false) {
                 break;
         }
     }
+
+    console.log(
+        "This is just a breakpoint holder, remove before final release."
+    ); //TODO: Remove before release ya dumb fucker
 }
 
 /**
