@@ -1,4 +1,4 @@
-import { choice } from "../random.js";
+import { choice } from "../random";
 
 export class Stats {
     private _strength: Stat;

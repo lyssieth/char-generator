@@ -20,7 +20,7 @@ import {
     LIKELIHOOD_OF_MURDER,
     CLASS,
     RACE,
-} from "./lists.js";
+} from "./lists";
 import { HairStyle } from "./types/hair";
 
 export function full() {

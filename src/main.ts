@@ -1,10 +1,9 @@
-import commander from "commander";
-const { Command } = commander;
+import { Command } from "commander";
 import { argv } from "process";
-import { interactive } from "./interactive.js";
-import { full } from "./full.js";
-import { describe } from "./describe.js";
-import { Character } from "./types/character.js";
+import { interactive } from "./interactive";
+import { full } from "./full";
+import { describe } from "./describe";
+import { Character } from "./types/character";
 
 /*
  * Based on this compilation of lists by /u/wizard_cheese, with hopefully some formatting.

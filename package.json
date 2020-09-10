@@ -2,7 +2,6 @@
     "name": "char-generator",
     "version": "0.0.1",
     "description": "Uses randomness to help create characters I guess?",
-    "type": "module",
     "scripts": {
         "start": "ts-node src/main",
         "debug": "ts-node --inspect src/main"

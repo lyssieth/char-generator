@@ -1,4 +1,3 @@
-import { choice, random } from "./random";
 import prompt from "prompt";
 import { Character } from "./types/character";
 import { ALIGNMENT } from "./lists";
@@ -92,14 +91,9 @@ function state_alignment() {
     while (true) {
         let tempAlignment: string;
 
-        /**
-         * @param {any} _err
-         * @param {{ alignment: string; }} result
-         */
-        function setTemp(_err: any, result: { alignment: string }) {
+        prompt.get(schema, (result: { alignment: string }) => {
             tempAlignment = result.alignment;
-        }
-        prompt.get(schema, setTemp);
+        });
 
         if (ALIGNMENT.some((v) => tempAlignment.toLowerCase() === v)) {
             alignment = tempAlignment;
