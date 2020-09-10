@@ -3,7 +3,7 @@ const { Command } = commander;
 import { argv } from "process";
 import { interactive } from "./interactive.js";
 import { full } from "./full.js";
-import { describe, describe_dbg } from "./describe.js";
+import { describe } from "./describe.js";
 import { Character } from "./types/character.js";
 
 /*
