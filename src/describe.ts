@@ -112,10 +112,13 @@ export function describe_dbg(char: Character, renderColors: boolean) {
     "skin_tone": "<%- skinTone %>",
     "hair": {
         "length": "<%- hair.length %>",
-        "style": "<%- hair.style %>",
+        "style": {
+            "name": "${char.hair.style.name}",
+            "plural": "${char.hair.style.plural}"
+        },
         "accessory": {
-            "name": "<%- hair.accessory.name >",
-            "plural": "<%- hair.accessory.plural >"
+            "name": "<%- hair.accessory.name %>",
+            "plural": "<%- hair.accessory.plural %>"
         },
         "primary_color": "${hairPrimary}",
         "secondary_color": "${hairSecondary}",
