@@ -34,8 +34,8 @@ export class Hair {
         this.style = style;
         this.accessory = accessory;
         this.primaryColor = primaryColor;
-        this.secondaryColor = secondaryColor || primaryColor;
-        this.tertiaryColor = tertiaryColor || primaryColor;
+        this.secondaryColor = secondaryColor;
+        this.tertiaryColor = tertiaryColor;
     }
 }
 

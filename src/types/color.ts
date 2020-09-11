@@ -27,4 +27,12 @@ export class Color {
 
         return { r: parseInt(r, 16), g: parseInt(g, 16), b: parseInt(b, 16) };
     }
+
+    public toString() {
+        return `${this.name} (${this.hex})`;
+    }
+
+    public toHTMLString() {
+        return `<span style="color: #${this.hex}" title="#${this.hex}">[${this.name}]</span>`;
+    }
 }

@@ -14,6 +14,7 @@ import { template } from "lodash";
 function generate() {
     const outputElement = getOutputElement();
     const dbg = getDebugElement();
+    const renderColors = getRenderColorsElement();
     const name = getNameElement();
 
     if (name) {
@@ -25,12 +26,19 @@ function generate() {
         }
     }
 
-    if (outputElement && dbg && name) {
+    if (outputElement && dbg && renderColors && name) {
         let char: Character = full(name.value);
 
-        let html = describe(char, dbg.checked);
+        let html = describe(char, dbg.checked, renderColors.checked);
 
         outputElement.innerHTML = html;
+    } else {
+        console.error("Encountered an unexpected null/undefined.", {
+            outputElement: outputElement,
+            dbg: dbg,
+            renderColors: renderColors,
+            name: name,
+        });
     }
 }
 
@@ -40,6 +48,10 @@ function getOutputElement() {
 
 function getDebugElement() {
     return <HTMLInputElement>document.getElementById("debug");
+}
+
+function getRenderColorsElement() {
+    return <HTMLInputElement>document.getElementById("render-colors");
 }
 
 function getNameElement() {

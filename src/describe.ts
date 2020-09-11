@@ -5,9 +5,14 @@ import { Character } from "./types/character";
 /**
  * @param {Character} char
  * @param {boolean} dbg
+ * @param {boolean} renderColors
  * @returns {string}
  */
-export function describe(char: Character, dbg: boolean = false): string {
+export function describe(
+    char: Character,
+    dbg: boolean = false,
+    renderColors: boolean = false
+): string {
     if (char.name.length < 1) char.name = "<namehere>";
     char.rollStats(dice_4d6kh3);
 
@@ -18,7 +23,7 @@ export function describe(char: Character, dbg: boolean = false): string {
             case "masculine":
             case "feminine":
             case "androgynous":
-                return describe_text(char);
+                return describe_text(char, renderColors);
             default:
                 return describe_dbg(char);
         }
@@ -29,10 +34,54 @@ export function describe(char: Character, dbg: boolean = false): string {
  * @param {Character} char
  * @returns {string}
  */
-function describe_text(char: Character): string {
-    let compiled = template(`<h1><%- name %></h1>
-    <%- name %> is an apparently <%- appearance %> <span class="underlined" title="<%- race.description %>"><%- race.name %></span>, though physically is <%- physicalGender %>.
-    `);
+function describe_text(char: Character, renderColors: boolean): string {
+    let text = "";
+
+    text += `<h1><%- name %></h1>\n`;
+    text += `<%- name %> is an apparently <%- appearance %> member of the <span class="underlined" title="<%- race.description %>"><%- race.name %></span> race,`;
+    text += ` though is physically <%- physicalGender %>.\n`;
+    text += `Their alignment is <%- alignment %>, and the likelihood that they'll commit murder is <%- likelihoodOfMurder %>.\n`;
+    text += `Their height is <%- height %> for their race, and they have a <%- voice %> voice with <%- skinTone %> skin.\n`;
+
+    if (char.hair.length == "bald" || char.hair.style.name == "bald") {
+        text += `They are bald.`;
+    } else {
+        if (char.hair.style.plural) {
+            text += `Their have <%- hair.length %> <%- hair.style.plural %> for hair.`;
+        } else {
+            text += `Their have <%- hair.length %> <%- hair.style.name %> hair.`;
+        }
+    }
+    text += ` The primary color of their hair is `;
+    if (renderColors) text += char.hair.primaryColor.toHTMLString();
+    else text += `<%- hair.primaryColor %>`;
+    if (char.hair.secondaryColor) {
+        text += ` with a secondary color of `;
+        if (renderColors) text += char.hair.secondaryColor.toHTMLString();
+        else text += `<%- hair.secondaryColor %>`;
+    }
+    if (char.hair.tertiaryColor) {
+        text += ` and a tertiary color of `;
+        if (renderColors) text += char.hair.tertiaryColor.toHTMLString();
+        else text += `<%- hair.tertiaryColor %>`;
+    }
+    text += `.\n`;
+
+    text += `Their eyes are `;
+    if (renderColors) text += char.eyes.irisColor.toHTMLString();
+    else text += `<%- eyes.irisColor %>`;
+    text += ` irises with `;
+    if (char.eyes.pupilShape == "shattered") {
+        text += `<%- eyes.pupilShape %> pupils`;
+    } else {
+        text += `<%- eyes.pupilShape %>-shaped pupils`;
+    }
+    text += ` and `;
+    if (renderColors) text += char.eyes.scleraColor.toHTMLString();
+    else text += `<%- eyes.scleraColor %>`;
+    text += ` sclera.\n`;
+
+    let compiled = template(text);
 
     return compiled(char);
 }

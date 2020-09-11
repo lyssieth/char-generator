@@ -75,7 +75,7 @@ export class ShoulderHairStyle extends HairStyle {
      * @param {string?} plural
      */
     constructor(name: string, plural: string | null = null) {
-        super(name, ["bald", "short", "neck"], plural);
+        super(name, ["bald", "short", "neck-length"], plural);
     }
 }
 
@@ -85,7 +85,11 @@ export class UpperBackHairStyle extends HairStyle {
      * @param {string?} plural
      */
     constructor(name: any, plural: string | null = null) {
-        super(name, ["bald", "short", "neck", "shoulder"], plural);
+        super(
+            name,
+            ["bald", "short", "neck-length", "shoulder-length"],
+            plural
+        );
     }
 }
 
@@ -97,7 +101,13 @@ export class LowerBackHairStyle extends HairStyle {
     constructor(name: any, plural: string | null = null) {
         super(
             name,
-            ["bald", "short", "neck", "shoulder", "upper back"],
+            [
+                "bald",
+                "short",
+                "neck-length",
+                "shoulder-length",
+                "upper back-length",
+            ],
             plural
         );
     }
@@ -111,7 +121,14 @@ export class ButtHairStyle extends HairStyle {
     constructor(name: any, plural: string | null = null) {
         super(
             name,
-            ["bald", "short", "neck", "shoulder", "upper back", "lower back"],
+            [
+                "bald",
+                "short",
+                "neck-length",
+                "shoulder-length",
+                "upper back-length",
+                "lower back-length",
+            ],
             plural
         );
     }
@@ -128,11 +145,11 @@ export class ThighHairStyle extends HairStyle {
             [
                 "bald",
                 "short",
-                "neck",
-                "shoulder",
-                "upper back",
-                "lower back",
-                "butt",
+                "neck-length",
+                "shoulder-length",
+                "upper back-length",
+                "lower back-length",
+                "butt-length",
             ],
             plural
         );
@@ -150,12 +167,12 @@ export class ShinHairStyle extends HairStyle {
             [
                 "bald",
                 "short",
-                "neck",
-                "shoulder",
-                "upper back",
-                "lower back",
-                "butt",
-                "thigh",
+                "neck-length",
+                "shoulder-length",
+                "upper back-length",
+                "lower back-length",
+                "butt-length",
+                "thigh-length",
             ],
             plural
         );
@@ -173,13 +190,13 @@ export class AnkleHairStyle extends HairStyle {
             [
                 "bald",
                 "short",
-                "neck",
-                "shoulder",
-                "upper back",
-                "lower back",
-                "butt",
-                "thigh",
-                "shin",
+                "neck-length",
+                "shoulder-length",
+                "upper back-length",
+                "lower back-length",
+                "butt-length",
+                "thigh-length",
+                "shin-length",
             ],
             plural
         );

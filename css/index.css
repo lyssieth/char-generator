@@ -1,5 +1,17 @@
 .underlined {
     text-decoration: underline;
-    color: #222222;
-    text-decoration-color: #111111;
+    color: #eeeeee;
+    text-decoration-color: #cccccc;
+}
+
+* {
+    background-color: black;
+    color: lightgray;
+}
+
+html {
+    color: lightgray;
+    font-size: 13pt;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.15;
 }
