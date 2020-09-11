@@ -1,4 +1,3 @@
-import prompt from "prompt";
 import { Character } from "./types/character";
 import { ALIGNMENT } from "./lists";
 
@@ -31,7 +30,7 @@ export function interactive() {
     let char = new Character("");
     let state = STATE.name;
 
-    prompt.start();
+    // prompt.start();
 
     while (state != 0) {
         switch (state) {
@@ -63,16 +62,16 @@ function state_name() {
 
     let name: string;
 
-    prompt.get(
-        schema,
-        /**
-         * @param {any} _err
-         * @param {{ name: string; }} result
-         */
-        function (_err: any, result: { name: string }) {
-            name = result.name;
-        }
-    );
+    // prompt.get(
+    //     schema,
+    //     /**
+    //      * @param {any} _err
+    //      * @param {{ name: string; }} result
+    //      */
+    //     function (_err: any, result: { name: string }) {
+    //         name = result.name;
+    //     }
+    // );
 
     return name;
 }
@@ -88,20 +87,20 @@ function state_alignment() {
 
     let alignment: string;
 
-    while (true) {
-        let tempAlignment: string;
+    // while (true) {
+    //     let tempAlignment: string;
 
-        prompt.get(schema, (result: { alignment: string }) => {
-            tempAlignment = result.alignment;
-        });
+    //     prompt.get(schema, (result: { alignment: string }) => {
+    //         tempAlignment = result.alignment;
+    //     });
 
-        if (ALIGNMENT.some((v) => tempAlignment.toLowerCase() === v)) {
-            alignment = tempAlignment;
-            break;
-        } else {
-            console.log(`Invalid alignment: ${tempAlignment}`);
-        }
-    }
+    //     if (ALIGNMENT.some((v) => tempAlignment.toLowerCase() === v)) {
+    //         alignment = tempAlignment;
+    //         break;
+    //     } else {
+    //         console.log(`Invalid alignment: ${tempAlignment}`);
+    //     }
+    // }
 
     return alignment;
 }

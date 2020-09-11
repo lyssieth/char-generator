@@ -4,13 +4,12 @@
     "description": "Uses randomness to help create characters I guess?",
     "scripts": {
         "start": "ts-node src/main",
-        "debug": "node -r ts-node/register --inspect src/main"
+        "debug": "node --trace-warnings -r ts-node/register --inspect src/main"
     },
     "author": "Lyssieth <raxixor@rax.ee>",
     "license": "MIT",
     "dependencies": {
         "commander": "^6.0.0",
-        "prompt": "^1.0.0",
         "random-js": "^2.1.0"
     },
     "devDependencies": {
