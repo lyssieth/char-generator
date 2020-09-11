@@ -1,5 +1,6 @@
 const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const webpack = require("webpack");
 
 module.exports = {
     mode: "development",
@@ -21,11 +22,23 @@ module.exports = {
                 test: /\.tsx?$/,
                 loader: "ts-loader",
             },
+            {
+                test: /\.ejs$/,
+                loader: "ejs-loader",
+                options: {
+                    variable: "data",
+                    interpolate: "\\{\\{(.+?)\\}\\}",
+                    evaluate: "\\[\\[(.+?)\\]\\]",
+                },
+            },
         ],
     },
     plugins: [
         new CopyWebpackPlugin({
             patterns: [{ from: "./html" }, { from: "./css" }],
+        }),
+        new webpack.ProvidePlugin({
+            _: "underscore",
         }),
     ],
 };

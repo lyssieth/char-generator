@@ -29,12 +29,22 @@ export class Color {
     }
 
     public toString() {
-        return `${this.name} (${this.hex})`;
+        return this.name + " " + this.hex;
     }
 
     public toHTMLString(renderColors: boolean) {
-        if (renderColors)
-            return '<span style="color: #${this.hex}" title="#${this.toString()}">[${this.name}]</span>';
-        else return this.toString();
+        if (renderColors) {
+            return (
+                '<span style="color: #' +
+                this.hex +
+                '" title="#' +
+                this.toString() +
+                '">[' +
+                this.name +
+                "]</span>"
+            );
+        } else {
+            return this.toString();
+        }
     }
 }

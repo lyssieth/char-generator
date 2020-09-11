@@ -85,20 +85,21 @@ function describe_text(char: Character, renderColors: boolean): string {
  * @param {Character} char
  */
 export function describe_dbg(char: Character, renderColors: boolean) {
-    let compiled = template(`<code>
+    let text = `
+<code>
 {
     "name": "<%- name %>",
     "race": {
         "name": "<%- race.name %>",
         "description": "<%- race.description %>"
-    }
+    },
     "alignment": "<%- alignment %>",
     "likelihood_of_murder": "<%- likelihoodOfMurder %>",
     "physical_gender": "<%- physicalGender %>",
     "appearance": "<%- appearance %>",
     "height": "<%- height %>",
-    "voice": "<%- melodic %>",
-    "skin_tone": "<%- pale %>",
+    "voice": "<%- voice %>",
+    "skin_tone": "<%- skinTone %>",
     "hair": {
         "length": "<%- hair.length %>",
         "style": "<%- hair.style %>",
@@ -106,43 +107,67 @@ export function describe_dbg(char: Character, renderColors: boolean) {
             "name": "<%- hair.accessory.name >",
             "plural": "<%- hair.accessory.plural >"
         },
-        "primary_color": "<%= hair.primaryColor.toHTMLString(renderColors); %>",
-        "secondary_color": "<%= hair.secondaryColor?.toHTMLString(renderColors); %>",
-        "tertiary_color": "<%= hair.tertiaryColor?.toHTMLString(renderColors); %>"
+        "primary_color": "`;
+    text += char.hair.primaryColor.toHTMLString(renderColors);
+    text += `",
+        "secondary_color": "`;
+    text += char.hair.secondaryColor
+        ? char.hair.secondaryColor.toHTMLString(renderColors)
+        : null;
+    text += `",
+        "tertiary_color": "`;
+    text += char.hair.tertiaryColor
+        ? char.hair.tertiaryColor.toHTMLString(renderColors)
+        : null;
+    text += `"
     },
     "eyes": {
-        "eyesight": "<%- eyes.eyesight %>"
-        "pupil_shape": "<%- eyes.pupilShape %>"
-        "iris_color": "<%= eyes.irisColor.toHTMLString(renderColors); %>",
-        "sclera_color": "<%= eyes.scleraColor.toHTMLString(renderColors); %>"
+        "eyesight": "<%- eyes.eyesight %>",
+        "pupil_shape": "<%- eyes.pupilShape %>",
+        "iris_color": "`;
+    text += char.eyes.irisColor.toHTMLString(renderColors);
+    text += `",
+        "sclera_color": "`;
+    text += char.eyes.scleraColor.toHTMLString(renderColors);
+    text += `"
     },
     "favorites": {
-        "color": "<%= favorites.color.toHTMLString(renderColors); %>",
+        "color": "`;
+    text += char.favorites.color.toHTMLString(renderColors);
+    text += `",
         "animal": "<%- favorites.animal %>"
-    }
-    "hobbies": <%= JSON.stringify(hobbies, null, 4) %>
-    "fears": <%= JSON.stringify(fears, null, 4) %>
+    },
+    "hobbies": <%= JSON.stringify(hobbies, null, 4) %>,
+    "fears": <%= JSON.stringify(fears, null, 4) %>,
     "class": {
-        "name": "<%- class.name %>"
+        "name": "<%- class.name %>",
         "preferences": {
-            "strength": <%- class.preferences.strength %>
-            "dexterity": <%- class.preferences.dexterity %>
-            "constitution": <%- class.preferences.constitution %>
-            "intelligence": <%- class.preferences.intelligence %>
-            "wisdom": <%- class.preferences.wisdom %>
+            "strength": <%- class.preferences.strength %>,
+            "dexterity": <%- class.preferences.dexterity %>,
+            "constitution": <%- class.preferences.constitution %>,
+            "intelligence": <%- class.preferences.intelligence %>,
+            "wisdom": <%- class.preferences.wisdom %>,
             "charisma": <%- class.preferences.charisma %>
         }
-    }
+    },
     "stats": {
-        "strength": <%- stats.strength.value %>
-        "dexterity": <%- stats.dexterity.value %>
-        "constitution": <%- stats.constitution.value %>
-        "intelligence": <%- stats.intelligence.value %>
-        "wisdom": <%- stats.wisdom.value %>
-        "charisma": <%- stats.charisma.value %>
-        "race_modifiers": <%= JSON.stringify(stats.raceModifiers, null, 4) %>
+        "strength": <%- stats.strength.value %>,
+        "dexterity": <%- stats.dexterity.value %>,
+        "constitution": <%- stats.constitution.value %>,
+        "intelligence": <%- stats.intelligence.value %>,
+        "wisdom": <%- stats.wisdom.value %>,
+        "charisma": <%- stats.charisma.value %>,
+        "race_modifiers": <% JSON.stringify(stats.raceModifiers, null, 4); %>
     }
-}</code>`);
+}</code>`;
 
-    return compiled({ renderColors, ...char });
+    try {
+        let compiled = template(text);
+
+        return compiled(char);
+    } catch (e) {
+        console.error(e);
+
+        return template(`<h1>An error occurred, check console!</h1>`)();
+    }
 }
