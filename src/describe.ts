@@ -155,12 +155,12 @@ export function describe_dbg(char: Character, renderColors: boolean) {
         "wisdom": ${char.stats.wisdom.value},
         "charisma": ${char.stats.charisma.value},
         "race_modifiers": {
-            "strength": ${char.stats.raceModifiers.strength},
-            "dexterity": ${char.stats.raceModifiers.dexterity},
-            "constitution": ${char.stats.raceModifiers.constitution},
-            "intelligence": ${char.stats.raceModifiers.intelligence},
-            "wisdom": ${char.stats.raceModifiers.wisdom},
-            "charisma": ${char.stats.raceModifiers.charisma}
+            "strength": ${char.stats.raceModifiers.strength.amount},
+            "dexterity": ${char.stats.raceModifiers.dexterity.amount},
+            "constitution": ${char.stats.raceModifiers.constitution.amount},
+            "intelligence": ${char.stats.raceModifiers.intelligence.amount},
+            "wisdom": ${char.stats.raceModifiers.wisdom.amount},
+            "charisma": ${char.stats.raceModifiers.charisma.amount}
         }
     }
 }</code>`;
