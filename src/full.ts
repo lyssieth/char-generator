@@ -95,7 +95,7 @@ export function full(name: string | null) {
 
     let fears = [];
 
-    for (let i = 0; i < random(0, 2); i++) {
+    for (let i = 0; i < random(0, 3); i++) {
         let fear = choice(FEARS)[0];
         let fear_level = choice(FEAR_LEVEL)[0];
 

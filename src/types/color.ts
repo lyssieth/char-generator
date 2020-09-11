@@ -37,7 +37,7 @@ export class Color {
             return (
                 '<span style="color: #' +
                 this.hex +
-                '" title="#' +
+                '" title="' +
                 this.toString() +
                 '">[' +
                 this.name +

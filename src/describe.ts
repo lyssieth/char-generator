@@ -1,6 +1,6 @@
 import { template } from "lodash";
 import { dice_4d6kh3 } from "./methods";
-import { Character } from "./types/character";
+import { Character, Fear } from "./types/character";
 
 /**
  * @param {Character} char
@@ -85,13 +85,23 @@ function describe_text(char: Character, renderColors: boolean): string {
  * @param {Character} char
  */
 export function describe_dbg(char: Character, renderColors: boolean) {
-    let text = `
-<code>
+    let hairPrimary = char.hair.primaryColor.toHTMLString(renderColors);
+    let hairSecondary = char.hair.secondaryColor
+        ? char.hair.secondaryColor.toHTMLString(renderColors)
+        : null;
+    let hairTertiary = char.hair.tertiaryColor
+        ? char.hair.tertiaryColor.toHTMLString(renderColors)
+        : null;
+    let eyesIris = char.eyes.irisColor.toHTMLString(renderColors);
+    let eyesSclera = char.eyes.scleraColor.toHTMLString(renderColors);
+    let favoriteColor = char.favorites.color.toHTMLString(renderColors);
+
+    let text = `<code>
 {
-    "name": "<%- name %>",
+    "name": "${char.name}",
     "race": {
-        "name": "<%- race.name %>",
-        "description": "<%- race.description %>"
+        "name": "${char.race.name}",
+        "description": "${char.race.description}"
     },
     "alignment": "<%- alignment %>",
     "likelihood_of_murder": "<%- likelihoodOfMurder %>",
@@ -107,57 +117,48 @@ export function describe_dbg(char: Character, renderColors: boolean) {
             "name": "<%- hair.accessory.name >",
             "plural": "<%- hair.accessory.plural >"
         },
-        "primary_color": "`;
-    text += char.hair.primaryColor.toHTMLString(renderColors);
-    text += `",
-        "secondary_color": "`;
-    text += char.hair.secondaryColor
-        ? char.hair.secondaryColor.toHTMLString(renderColors)
-        : null;
-    text += `",
-        "tertiary_color": "`;
-    text += char.hair.tertiaryColor
-        ? char.hair.tertiaryColor.toHTMLString(renderColors)
-        : null;
-    text += `"
+        "primary_color": "${hairPrimary}",
+        "secondary_color": "${hairSecondary}",
+        "tertiary_color": "${hairTertiary}"
     },
     "eyes": {
-        "eyesight": "<%- eyes.eyesight %>",
-        "pupil_shape": "<%- eyes.pupilShape %>",
-        "iris_color": "`;
-    text += char.eyes.irisColor.toHTMLString(renderColors);
-    text += `",
-        "sclera_color": "`;
-    text += char.eyes.scleraColor.toHTMLString(renderColors);
-    text += `"
+        "eyesight": "${char.eyes.eyesight}",
+        "pupil_shape": "${char.eyes.pupilShape}",
+        "iris_color": "${eyesIris}",
+        "sclera_color": "${eyesSclera}"
     },
     "favorites": {
-        "color": "`;
-    text += char.favorites.color.toHTMLString(renderColors);
-    text += `",
-        "animal": "<%- favorites.animal %>"
+        "color": "${favoriteColor}",
+        "animal": "${char.favorites.animal}"
     },
-    "hobbies": <%= JSON.stringify(hobbies, null, 4) %>,
-    "fears": <%= JSON.stringify(fears, null, 4) %>,
+    "hobbies": ${stringifyHobbies(char.hobbies, 8)},
+    "fears": ${stringifyFears(char.fears, 8)},
     "class": {
-        "name": "<%- class.name %>",
+        "name": ${char.class.name}
         "preferences": {
-            "strength": <%- class.preferences.strength %>,
-            "dexterity": <%- class.preferences.dexterity %>,
-            "constitution": <%- class.preferences.constitution %>,
-            "intelligence": <%- class.preferences.intelligence %>,
-            "wisdom": <%- class.preferences.wisdom %>,
-            "charisma": <%- class.preferences.charisma %>
+            "strength": ${char.class.preferences.strength},
+            "dexterity": ${char.class.preferences.dexterity},
+            "constitution": ${char.class.preferences.constitution},
+            "intelligence": ${char.class.preferences.intelligence},
+            "wisdom": ${char.class.preferences.wisdom},
+            "charisma": ${char.class.preferences.charisma},
         }
-    },
+    }
     "stats": {
-        "strength": <%- stats.strength.value %>,
-        "dexterity": <%- stats.dexterity.value %>,
-        "constitution": <%- stats.constitution.value %>,
-        "intelligence": <%- stats.intelligence.value %>,
-        "wisdom": <%- stats.wisdom.value %>,
-        "charisma": <%- stats.charisma.value %>,
-        "race_modifiers": <% JSON.stringify(stats.raceModifiers, null, 4); %>
+        "strength": ${char.stats.strength.value},
+        "dexterity": ${char.stats.dexterity.value},
+        "constitution": ${char.stats.constitution.value},
+        "intelligence": ${char.stats.intelligence.value},
+        "wisdom": ${char.stats.wisdom.value},
+        "charisma": ${char.stats.charisma.value},
+        "race_modifiers": {
+            "strength": ${char.stats.raceModifiers.strength},
+            "dexterity": ${char.stats.raceModifiers.dexterity},
+            "constitution": ${char.stats.raceModifiers.constitution},
+            "intelligence": ${char.stats.raceModifiers.intelligence},
+            "wisdom": ${char.stats.raceModifiers.wisdom},
+            "charisma": ${char.stats.raceModifiers.charisma}
+        }
     }
 }</code>`;
 
@@ -170,4 +171,51 @@ export function describe_dbg(char: Character, renderColors: boolean) {
 
         return template(`<h1>An error occurred, check console!</h1>`)();
     }
+}
+
+function stringifyHobbies(hobbies: string[], baseIndent: number) {
+    let text = "[\n";
+
+    hobbies.forEach((x) => {
+        text += s(baseIndent) + '"' + x + '",\n';
+    });
+
+    text =
+        text.substring(0, text.length).trim() +
+        "\n" +
+        s(baseIndent - 4) +
+        "]\n";
+
+    if (text.length < 10) text = "[]";
+
+    return text.trim();
+}
+
+function stringifyFears(fears: Fear[], baseIndent: number) {
+    let text = "[";
+
+    for (const i in fears) {
+        let fear = fears[i];
+        text += `\n${s(baseIndent)}{\n${s(baseIndent + 4)}"level": "${
+            fear.level
+        }",\n${s(baseIndent + 4)}"of": "${fear.of}"\n${s(baseIndent)}},`;
+    }
+
+    text =
+        text.substring(0, text.length - 1) + "\n" + s(baseIndent - 4) + "]\n";
+
+    if (text.length < 10) text = "[]";
+
+    return text.trim();
+}
+
+function s(amount: number) {
+    return c(" ", amount);
+}
+
+function c(char: string, amount: number) {
+    let text = "";
+    for (let i = 0; i < amount; i++) text += char;
+
+    return text;
 }

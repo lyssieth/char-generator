@@ -162,7 +162,7 @@ export class Character {
 
         let rolls = method();
 
-        rolls = rolls.sort((a: number, b: number) => a - b).reverse();
+        rolls = rolls.sort((a: number, b: number) => a + b);
 
         rolls.forEach((val: number, _) => {
             if (pref.length > 0) {
