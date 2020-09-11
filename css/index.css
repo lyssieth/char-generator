@@ -15,3 +15,8 @@ html {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.15;
 }
+
+code {
+    font-size: 12pt;
+    font-family: monospace;
+}

@@ -17,7 +17,7 @@ export function describe(
     char.rollStats(dice_4d6kh3);
 
     if (dbg) {
-        return describe_dbg(char);
+        return describe_dbg(char, renderColors);
     } else {
         switch (char.appearance) {
             case "masculine":
@@ -25,7 +25,7 @@ export function describe(
             case "androgynous":
                 return describe_text(char, renderColors);
             default:
-                return describe_dbg(char);
+                return describe_dbg(char, renderColors);
         }
     }
 }
@@ -53,23 +53,19 @@ function describe_text(char: Character, renderColors: boolean): string {
         }
     }
     text += ` The primary color of their hair is `;
-    if (renderColors) text += char.hair.primaryColor.toHTMLString();
-    else text += `<%- hair.primaryColor %>`;
+    text += char.hair.primaryColor.toHTMLString(renderColors);
     if (char.hair.secondaryColor) {
         text += ` with a secondary color of `;
-        if (renderColors) text += char.hair.secondaryColor.toHTMLString();
-        else text += `<%- hair.secondaryColor %>`;
+        text += char.hair.secondaryColor.toHTMLString(renderColors);
     }
     if (char.hair.tertiaryColor) {
         text += ` and a tertiary color of `;
-        if (renderColors) text += char.hair.tertiaryColor.toHTMLString();
-        else text += `<%- hair.tertiaryColor %>`;
+        text += char.hair.tertiaryColor.toHTMLString(renderColors);
     }
     text += `.\n`;
 
     text += `Their eyes are `;
-    if (renderColors) text += char.eyes.irisColor.toHTMLString();
-    else text += `<%- eyes.irisColor %>`;
+    text += char.eyes.irisColor.toHTMLString(renderColors);
     text += ` irises with `;
     if (char.eyes.pupilShape == "shattered") {
         text += `<%- eyes.pupilShape %> pupils`;
@@ -77,8 +73,7 @@ function describe_text(char: Character, renderColors: boolean): string {
         text += `<%- eyes.pupilShape %>-shaped pupils`;
     }
     text += ` and `;
-    if (renderColors) text += char.eyes.scleraColor.toHTMLString();
-    else text += `<%- eyes.scleraColor %>`;
+    text += char.eyes.scleraColor.toHTMLString(renderColors);
     text += ` sclera.\n`;
 
     let compiled = template(text);
@@ -89,66 +84,65 @@ function describe_text(char: Character, renderColors: boolean): string {
 /**
  * @param {Character} char
  */
-export function describe_dbg(char: Character) {
-    return (
-        `<code>` +
-        JSON.stringify(
-            {
-                name: char.name,
-                race: {
-                    name: char.race.name,
-                    description: char.race.description,
-                },
-                alignment: char.alignment,
-                likelihood_of_murder: char.likelihoodOfMurder,
-                physical_gender: char.physicalGender,
-                appearance: char.appearance,
-                height: char.height,
-                voice: char.voice,
-                skin_tone: char.skinTone,
-                hair: {
-                    length: char.hair.length,
-                    style: char.hair.style.plural || char.hair.style.name,
-                    accessory: char.hair.accessory,
-                    primary_color: char.hair.primaryColor,
-                    secondary_color: char.hair.secondaryColor,
-                    tertiary_color: char.hair.tertiaryColor,
-                },
-                eyes: {
-                    eyesight: char.eyes.eyesight,
-                    pupil_shape: char.eyes.pupilShape,
-                    iris_color: char.eyes.irisColor,
-                    sclera_color: char.eyes.scleraColor,
-                },
-                favorites: {
-                    color: char.favorites.color,
-                    animal: char.favorites.animal,
-                },
-                hobbies: char.hobbies,
-                fears: char.fears,
-                class: char.class,
-                stats: {
-                    strength: char.stats.strength,
-                    dexterity: char.stats.dexterity,
-                    constitution: char.stats.constitution,
-                    intelligence: char.stats.intelligence,
-                    wisdom: char.stats.wisdom,
-                    charisma: char.stats.charisma,
-                    race_modifiers: {
-                        strength: char.stats.raceModifiers.strength.amount,
-                        dexterity: char.stats.raceModifiers.dexterity.amount,
-                        constitution:
-                            char.stats.raceModifiers.constitution.amount,
-                        intelligence:
-                            char.stats.raceModifiers.intelligence.amount,
-                        wisdom: char.stats.raceModifiers.wisdom.amount,
-                        charisma: char.stats.raceModifiers.charisma.amount,
-                    },
-                },
-            },
-            null,
-            4
-        ) +
-        `</code>`
-    );
+export function describe_dbg(char: Character, renderColors: boolean) {
+    let compiled = template(`<code>
+{
+    "name": "<%- name %>",
+    "race": {
+        "name": "<%- race.name %>",
+        "description": "<%- race.description %>"
+    }
+    "alignment": "<%- alignment %>",
+    "likelihood_of_murder": "<%- likelihoodOfMurder %>",
+    "physical_gender": "<%- physicalGender %>",
+    "appearance": "<%- appearance %>",
+    "height": "<%- height %>",
+    "voice": "<%- melodic %>",
+    "skin_tone": "<%- pale %>",
+    "hair": {
+        "length": "<%- hair.length %>",
+        "style": "<%- hair.style %>",
+        "accessory": {
+            "name": "<%- hair.accessory.name >",
+            "plural": "<%- hair.accessory.plural >"
+        },
+        "primary_color": "<%= hair.primaryColor.toHTMLString(renderColors); %>",
+        "secondary_color": "<%= hair.secondaryColor?.toHTMLString(renderColors); %>",
+        "tertiary_color": "<%= hair.tertiaryColor?.toHTMLString(renderColors); %>"
+    },
+    "eyes": {
+        "eyesight": "<%- eyes.eyesight %>"
+        "pupil_shape": "<%- eyes.pupilShape %>"
+        "iris_color": "<%= eyes.irisColor.toHTMLString(renderColors); %>",
+        "sclera_color": "<%= eyes.scleraColor.toHTMLString(renderColors); %>"
+    },
+    "favorites": {
+        "color": "<%= favorites.color.toHTMLString(renderColors); %>",
+        "animal": "<%- favorites.animal %>"
+    }
+    "hobbies": <%= JSON.stringify(hobbies, null, 4) %>
+    "fears": <%= JSON.stringify(fears, null, 4) %>
+    "class": {
+        "name": "<%- class.name %>"
+        "preferences": {
+            "strength": <%- class.preferences.strength %>
+            "dexterity": <%- class.preferences.dexterity %>
+            "constitution": <%- class.preferences.constitution %>
+            "intelligence": <%- class.preferences.intelligence %>
+            "wisdom": <%- class.preferences.wisdom %>
+            "charisma": <%- class.preferences.charisma %>
+        }
+    }
+    "stats": {
+        "strength": <%- stats.strength.value %>
+        "dexterity": <%- stats.dexterity.value %>
+        "constitution": <%- stats.constitution.value %>
+        "intelligence": <%- stats.intelligence.value %>
+        "wisdom": <%- stats.wisdom.value %>
+        "charisma": <%- stats.charisma.value %>
+        "race_modifiers": <%= JSON.stringify(stats.raceModifiers, null, 4) %>
+    }
+}</code>`);
+
+    return compiled({ renderColors, ...char });
 }

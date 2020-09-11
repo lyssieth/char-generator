@@ -32,7 +32,9 @@ export class Color {
         return `${this.name} (${this.hex})`;
     }
 
-    public toHTMLString() {
-        return `<span style="color: #${this.hex}" title="#${this.hex}">[${this.name}]</span>`;
+    public toHTMLString(renderColors: boolean) {
+        if (renderColors)
+            return '<span style="color: #${this.hex}" title="#${this.toString()}">[${this.name}]</span>';
+        else return this.toString();
     }
 }
