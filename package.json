@@ -7,7 +7,8 @@
         "debug": "node --trace-warnings -r ts-node/register --inspect src/main",
         "wp": "webpack",
         "wpw": "webpack --watch",
-        "serve": "http-server build -p 8012"
+        "serve": "http-server build -p 8012",
+        "serve-debug": "lite-server"
     },
     "author": "Lyssieth <raxixor@rax.ee>",
     "license": "MIT",

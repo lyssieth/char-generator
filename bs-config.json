@@ -1,5 +1,5 @@
 {
-    "port": 8012,
+    "port": 8013,
     "files": ["./build/**/*.{html,htm,css,js}"],
     "server": { "baseDir": "./build" }
 }
