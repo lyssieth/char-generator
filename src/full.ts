@@ -23,8 +23,11 @@ import {
 } from "./lists";
 import { HairStyle } from "./types/hair";
 
-export function full() {
-    let char = new Character("");
+/**
+ * @param {string?} name Name
+ */
+export function full(name: string | null) {
+    let char = new Character(name || "FAKE NAME HERE");
 
     char.alignment = choice(ALIGNMENT)[0];
     char.likelihoodOfMurder = choice(LIKELIHOOD_OF_MURDER)[0];

@@ -1,9 +1,7 @@
-import { Command } from "commander";
-import { argv } from "process";
-import { interactive } from "./interactive";
 import { full } from "./full";
 import { describe } from "./describe";
 import { Character } from "./types/character";
+import { template } from "lodash";
 
 /*
  * Based on this compilation of lists by /u/wizard_cheese, with hopefully some formatting.
@@ -13,25 +11,39 @@ import { Character } from "./types/character";
  * Might be interesting, though, I dunno.
  */
 
-const program = new Command();
-program.name("char-generator");
-program.version("0.0.1");
+function generate() {
+    const outputElement = getOutputElement();
+    const dbg = getDebugElement();
+    const name = getNameElement();
 
-program.option("--interactive", "A fully interactive run", false);
-program.option(
-    "--dbg",
-    "Describes as debug print, not as proper describe",
-    true
-);
+    if (name) {
+        if (name.value.length < 1) {
+            outputElement.innerHTML = template(
+                `<h1 style="color:red;">Please insert a name!</h1>`
+            )();
+            return;
+        }
+    }
 
-program.parse(argv);
+    if (outputElement && dbg && name) {
+        let char: Character = full(name.value);
 
-let char: Character;
+        let html = describe(char, dbg.checked);
 
-if (program.interactive) {
-    char = interactive();
-} else {
-    char = full();
+        outputElement.innerHTML = html;
+    }
 }
 
-describe(char, program.dbg);
+function getOutputElement() {
+    return <HTMLDivElement>document.getElementById("output");
+}
+
+function getDebugElement() {
+    return <HTMLInputElement>document.getElementById("debug");
+}
+
+function getNameElement() {
+    return <HTMLInputElement>document.getElementById("name");
+}
+
+module.exports = generate;

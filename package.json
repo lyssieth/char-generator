@@ -4,19 +4,30 @@
     "description": "Uses randomness to help create characters I guess?",
     "scripts": {
         "start": "ts-node src/main",
-        "debug": "node --trace-warnings -r ts-node/register --inspect src/main"
+        "debug": "node --trace-warnings -r ts-node/register --inspect src/main",
+        "wp": "webpack",
+        "wpw": "webpack --watch",
+        "serve": "http-server build -p 8012"
     },
     "author": "Lyssieth <raxixor@rax.ee>",
     "license": "MIT",
     "dependencies": {
         "commander": "^6.0.0",
-        "random-js": "^2.1.0"
+        "copy-webpack-plugin": "^6.1.0",
+        "lodash": "^4.17.20",
+        "random-js": "^2.1.0",
+        "ts-loader": "^8.0.3",
+        "webpack": "^4.44.1",
+        "webpack-cli": "^3.3.12"
     },
     "devDependencies": {
         "@types/color-name": "^1.1.1",
+        "@types/lodash": "^4.14.161",
         "@types/node": "^14.10.0",
         "eslint": "^7.5.0",
+        "http-server": "^0.12.3",
         "jshint": "^2.11.1",
+        "lite-server": "^2.5.4",
         "ts-node": "^9.0.0",
         "typescript": "^4.0.2"
     }

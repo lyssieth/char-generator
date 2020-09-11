@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "rootDir": "src",
+        "outDir": "dist",
+        "target": "es2019",
+        "lib": ["ES2019", "DOM"],
+        "module": "CommonJS",
+        "esModuleInterop": true,
+        "strict": true,
+        "sourceMap": true
+    }
+}
