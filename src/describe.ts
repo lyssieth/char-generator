@@ -20,8 +20,8 @@ export function describe(
         return describe_dbg(char, renderColors);
     } else {
         switch (char.appearance) {
-            case "masculine":
-            case "feminine":
+            case "male":
+            case "female":
             case "androgynous":
                 return describe_text(char, renderColors);
             default:
@@ -38,8 +38,8 @@ function describe_text(char: Character, renderColors: boolean): string {
     let text = "";
 
     text += `<h1><%- char.name %></h1>\n`;
-    text += `<%- char.name %> is an apparently <%- char.appearance %> member of the <span class="underlined" title="<%- char.race.description %>"><%- char.race.name %></span> race,`;
-    text += ` though is physically <%- char.physicalGender %>.\n`;
+    text += `<%- char.name %> is a <%- char.physicalGender %> member of the <span class="underlined" title="<%- char.race.description %>"><%- char.race.name %></span> race,`;
+    text += ` though presents themselves as <%- char.appearance %>.\n`;
     text += `Their alignment is <%- char.alignment %>, and the likelihood that they'll commit murder is <%- char.likelihoodOfMurder %>.\n`;
     text += `Their height is <%- char.height %> for their race, and they have a <%- char.voice %> voice with <%- char.skinTone %> skin.\n`;
 

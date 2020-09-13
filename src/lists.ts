@@ -269,7 +269,7 @@ export const RACE = [
     ),
 ];
 export const PHYSICAL_GENDER = ["male", "female", "hermaphrodite"];
-export const APPEARANCE = ["masculine", "feminine", "androgynous"];
+export const APPEARANCE = ["male", "female", "androgynous"];
 export const HEIGHT = [
     "average",
     "tall",
