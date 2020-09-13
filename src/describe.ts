@@ -1,5 +1,4 @@
 import { template } from "lodash";
-import { COLORS, COLOR_OBJECTS } from "./lists";
 import { dice_4d6kh3 } from "./methods";
 import { Character, Fear } from "./types/character";
 
