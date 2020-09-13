@@ -51,7 +51,9 @@ export function full(name: string | null) {
     });
     let hair_accessory = <HairAccessory>choice(HAIR_ACCESSORY);
 
-    let colors = <Color[]>choice(COLOR_OBJECTS, random(1, 3));
+    let colors = choice(COLOR_OBJECTS, random(1, 3));
+
+    if (colors instanceof Color) colors = [colors];
 
     switch (colors.length) {
         case 1:
@@ -84,14 +86,14 @@ export function full(name: string | null) {
     }
 
     char.eyes = new Eyes(
-        choice(EYESIGHT)[0],
-        choice(PUPIL_SHAPE)[0],
+        <string>choice(EYESIGHT),
+        <string>choice(PUPIL_SHAPE),
         <Color>choice(COLOR_OBJECTS),
         <Color>choice(COLOR_OBJECTS)
     );
     char.favorites = new Favorites(
         <Color>choice(COLOR_OBJECTS),
-        choice(FAVORITE_ANIMAL)[0]
+        <string>choice(FAVORITE_ANIMAL)
     );
 
     let hobbies = choice(HOBBIES, random(0, 4));
