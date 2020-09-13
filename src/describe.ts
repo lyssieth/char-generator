@@ -1,4 +1,5 @@
 import { template } from "lodash";
+import { COLORS, COLOR_OBJECTS } from "./lists";
 import { dice_4d6kh3 } from "./methods";
 import { Character, Fear } from "./types/character";
 
@@ -39,7 +40,9 @@ function describe_text(char: Character, renderColors: boolean): string {
 
     text += `<h1><%- char.name %></h1>\n`;
     text += `<%- char.name %> is a <%- char.physicalGender %> member of the <span class="underlined" title="<%- char.race.description %>"><%- char.race.name %></span> race,`;
-    text += ` though presents themselves as <%- char.appearance %>.\n`;
+    if (char.physicalGender === char.appearance)
+        text += ` and presents themselves as the same.\n`;
+    else text += ` though presents themselves as <%- char.appearance %>.\n`;
     text += `Their alignment is <%- char.alignment %>, and the likelihood that they'll commit murder is <%- char.likelihoodOfMurder %>.\n`;
     text += `Their height is <%- char.height %> for their race, and they have a <%- char.voice %> voice with <%- char.skinTone %> skin.\n`;
 
