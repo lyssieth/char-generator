@@ -29,7 +29,7 @@ export class Color {
     }
 
     public toString() {
-        return this.name + " " + this.hex;
+        return `<span class="underlined" title="${this.hex}">${this.name}</span>`;
     }
 
     public toHTMLString(renderColors: boolean) {

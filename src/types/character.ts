@@ -166,7 +166,8 @@ export class Character {
 
         rolls.forEach((val: number, _) => {
             if (pref.length > 0) {
-                let it = choice(pref)[0];
+                let it = choice(pref);
+                if (it instanceof Array) it = it[0];
                 switch (it) {
                     case "strength":
                         this.stats.strength.value = val;
@@ -207,7 +208,8 @@ export class Character {
                         break;
                 }
             } else {
-                let it = choice(remaining)[0];
+                let it = choice(remaining);
+                if (it instanceof Array) it = it[0];
                 switch (it) {
                     case "strength":
                         this.stats.strength.value = val;
