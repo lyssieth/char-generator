@@ -37,19 +37,19 @@ export function describe(
 function describe_text(char: Character, renderColors: boolean): string {
     let text = "";
 
-    text += `<h1><%- name %></h1>\n`;
-    text += `<%- name %> is an apparently <%- appearance %> member of the <span class="underlined" title="<%- race.description %>"><%- race.name %></span> race,`;
-    text += ` though is physically <%- physicalGender %>.\n`;
-    text += `Their alignment is <%- alignment %>, and the likelihood that they'll commit murder is <%- likelihoodOfMurder %>.\n`;
-    text += `Their height is <%- height %> for their race, and they have a <%- voice %> voice with <%- skinTone %> skin.\n`;
+    text += `<h1><%- char.name %></h1>\n`;
+    text += `<%- char.name %> is an apparently <%- char.appearance %> member of the <span class="underlined" title="<%- char.race.description %>"><%- char.race.name %></span> race,`;
+    text += ` though is physically <%- char.physicalGender %>.\n`;
+    text += `Their alignment is <%- char.alignment %>, and the likelihood that they'll commit murder is <%- char.likelihoodOfMurder %>.\n`;
+    text += `Their height is <%- char.height %> for their race, and they have a <%- char.voice %> voice with <%- char.skinTone %> skin.\n`;
 
     if (char.hair.length == "bald" || char.hair.style.name == "bald") {
         text += `They are bald.`;
     } else {
         if (char.hair.style.plural) {
-            text += `Their have <%- hair.length %> <%- hair.style.plural %> for hair.`;
+            text += `Their have <%- char.hair.length %> <%- char.hair.style.plural %> for hair.`;
         } else {
-            text += `Their have <%- hair.length %> <%- hair.style.name %> hair.`;
+            text += `Their have <%- char.hair.length %> <%- char.hair.style.name %> hair.`;
         }
     }
     text += ` The primary color of their hair is `;
@@ -68,17 +68,101 @@ function describe_text(char: Character, renderColors: boolean): string {
     text += char.eyes.irisColor.toHTMLString(renderColors);
     text += ` irises with `;
     if (char.eyes.pupilShape == "shattered") {
-        text += `<%- eyes.pupilShape %> pupils`;
+        text += `<%- char.eyes.pupilShape %> pupils`;
     } else {
-        text += `<%- eyes.pupilShape %>-shaped pupils`;
+        text += `<%- char.eyes.pupilShape %>-shaped pupils`;
     }
     text += ` and `;
     text += char.eyes.scleraColor.toHTMLString(renderColors);
     text += ` sclera.\n`;
 
+    text += `Their favorite color is `;
+    text += char.favorites.color.toHTMLString(renderColors);
+    text += ` and their favorite animal is a(n) <%- char.favorites.animal %>.\n`;
+
+    if (char.hobbies.length > 0) {
+        if (char.hobbies.length > 1) {
+            text += `Their hobbies are: `;
+            for (const i in char.hobbies) {
+                let hobby = char.hobbies[i];
+
+                text += hobby;
+                if (char.hobbies.indexOf(hobby) != char.hobbies.length - 1) {
+                    text += `, `;
+                }
+            }
+            text += `.\n`;
+        } else {
+            text += `Their hobby is ${char.hobbies[0]}.\n`;
+        }
+    } else {
+        text += `They have no hobbies.\n`;
+    }
+
+    if (char.fears.length > 0) {
+        if (char.fears.length > 1) {
+            text += `Their fears are: `;
+            for (const i in char.fears) {
+                let fear = char.fears[i];
+
+                text += `a(n) ${fear.level} fear of ${fear.of}`;
+                if (char.fears.indexOf(fear) != char.fears.length - 1) {
+                    text += `, `;
+                }
+            }
+            text += `.\n`;
+        } else {
+            let fear = char.fears[0];
+            text += `Their only fear is a(n) ${fear.level} fear of ${fear.of}.\n`;
+        }
+    } else {
+        text += `They have no fears.\n`;
+    }
+
+    text += `They are a <%- char.class.name %>, which has preferences for the following stats: `;
+
+    let pref = char.class.preferences;
+
+    let p = ``;
+
+    if (pref.strength) {
+        p += `strength`;
+    }
+    if (pref.dexterity) {
+        if (p.length > 0) p += ` and dexterity`;
+        else p += `dexterity`;
+    }
+    if (pref.constitution) {
+        if (p.length > 0) p += ` and constitution`;
+        else p += `constitution`;
+    }
+    if (pref.intelligence) {
+        if (p.length > 0) p += ` and intelligence`;
+        else p += `intelligence`;
+    }
+    if (pref.wisdom) {
+        if (p.length > 0) p += ` and wisdom`;
+        else p += `wisdom`;
+    }
+    if (pref.charisma) {
+        if (p.length > 0) p += ` and charisma`;
+        else p += `charisma`;
+    }
+
+    text += p + `.\n`;
+
+    text += `Their stats are as follows:\n`;
+
+    text += `- strength: <%- char.stats.strength.value %> (race modifier: <%- char.stats.raceModifiers.strength.amount %>)\n`;
+    text += `- dexterity: <%- char.stats.dexterity.value %> (race modifier: <%- char.stats.raceModifiers.dexterity.amount %>)\n`;
+    text += `- constitution: <%- char.stats.constitution.value %> (race modifier: <%- char.stats.raceModifiers.constitution.amount %>)\n`;
+    text += `- intelligence: <%- char.stats.intelligence.value %> (race modifier: <%- char.stats.raceModifiers.intelligence.amount %>)\n`;
+    text += `- wisdom: <%- char.stats.wisdom.value %> (race modifier: <%- char.stats.raceModifiers.wisdom.amount %>)\n`;
+    text += `- charisma: <%- char.stats.charisma.value %> (race modifier: <%- char.stats.raceModifiers.charisma.amount %>)\n`;
+
     let compiled = template(text);
 
-    return compiled(char);
+    return compiled({ char });
 }
 
 /**

@@ -2,32 +2,40 @@ import { nativeMath, sample, integer } from "random-js";
 
 /**
  * @param {Array.<T>} input A list containing input data
- * @returns {Array.<T>} An array of length **amount** with no repeats
+ * @param {number} amount
+ * @returns {Array.<T> | T} An array of length **amount** with no repeats
  *
  * @template T
  */
-export function choice<T>(input: Array<T>, amount = 1): Array<T> {
-    return sample(nativeMath, input, amount);
+export function choice<T>(input: Array<T>, amount = 1): Array<T> | T {
+    let ret = sample(nativeMath, input, amount);
+
+    if (ret.length == 1) return ret[0];
+
+    return ret;
 }
 
 /**
- * @param {any[]} input
- * @param {(item: any) => boolean} filter
+ * @param {Array.<T>} input
+ * @param {(item: T) => boolean} filter
+ * @param {number} amount
+ * @returns {Array.<T> | T}
+ *
+ * @template T
  */
-export function choice_filter(
-    input: any[],
-    filter: (item: any) => boolean,
+export function choice_filter<T>(
+    input: Array<T>,
+    filter: (item: T) => boolean,
     amount = 1
-) {
+): Array<T> | T {
     let output = [];
 
     while (output.length < amount) {
-        let ch = choice(input)[0];
-        if (filter(ch)) {
-            output.push(ch);
-        }
+        let ch = <T>choice(input, 1); // Calling 'choice' with an amount of 1 guarantees it is T and not T[]
+        if (filter(ch)) output.push(ch);
     }
 
+    if (output.length == 1) return output[0];
     return output;
 }
 
