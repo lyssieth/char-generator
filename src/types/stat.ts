@@ -315,6 +315,7 @@ export class Modifiers {
      * @param {number} add
      */
     random(amt: number, add: number) {
+        if (amt == 1) return this;
         let include = [];
 
         if (this._strength.amount === 0) include.push("strength");
@@ -326,7 +327,7 @@ export class Modifiers {
 
         if (include.length === 0) return this;
 
-        let it = choice(include, amt);
+        let it = <string[]>choice(include, amt);
 
         it.forEach((i) => {
             switch (i) {
