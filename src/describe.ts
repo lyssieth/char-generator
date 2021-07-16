@@ -86,14 +86,15 @@ function describe_text(char: Character, renderColors: boolean): string {
         if (char.hobbies.length > 1) {
             text += `Their hobbies are: `;
             for (const i in char.hobbies) {
+                text += `\n- `;
                 let hobby = char.hobbies[i];
 
                 text += hobby;
                 if (char.hobbies.indexOf(hobby) != char.hobbies.length - 1) {
-                    text += `, `;
+                    text += `\n- `;
                 }
             }
-            text += `.\n`;
+            text += `\n`;
         } else {
             text += `Their hobby is ${char.hobbies[0]}.\n`;
         }
@@ -105,11 +106,12 @@ function describe_text(char: Character, renderColors: boolean): string {
         if (char.fears.length > 1) {
             text += `Their fears are: `;
             for (const i in char.fears) {
+                text += `\n- `;
                 let fear = char.fears[i];
 
                 text += `a(n) ${fear.level} fear of ${fear.of}`;
                 if (char.fears.indexOf(fear) != char.fears.length - 1) {
-                    text += `, `;
+                    text += `\n- `;
                 }
             }
             text += `.\n`;
