@@ -87,6 +87,9 @@ function describe_text(char: Character, renderColors: boolean): string {
             text += `Their hobbies are: `;
             for (const i in char.hobbies) {
                 let hobby = char.hobbies[i];
+                if (char.hobbies.indexOf(hobby) == 0) {
+                    text += `\n`;
+                }
 
                 text += `- ${hobby}\n`;
             }
@@ -102,6 +105,9 @@ function describe_text(char: Character, renderColors: boolean): string {
             text += `Their fears are: `;
             for (const i in char.fears) {
                 let fear = char.fears[i];
+                if (char.fears.indexOf(fear) == 0) {
+                    text += `\n`;
+                }
 
                 text += `- a(n) ${fear.level} fear of ${fear.of}\n`;
             }
@@ -215,7 +221,7 @@ export function describe_dbg(char: Character, renderColors: boolean) {
     "hobbies": ${stringifyHobbies(char.hobbies, 8)},
     "fears": ${stringifyFears(char.fears, 8)},
     "class": {
-        "name": ${char.class.name}
+        "name": "${char.class.name}",
         "preferences": {
             "strength": ${char.class.preferences.strength},
             "dexterity": ${char.class.preferences.dexterity},
